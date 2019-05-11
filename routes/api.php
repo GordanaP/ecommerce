@@ -8,6 +8,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::name('api.')->group(function () {
     Route::apiResource('categories', 'Api\Category\CategoryController', [
-        'only' => ['index', 'destroy'],
+        'only' => ['index']
     ]);
+
+    Route::delete('categories/{category?}', 'Api\Category\CategoryController@destroy')
+        ->name('categories.destroy');
 });

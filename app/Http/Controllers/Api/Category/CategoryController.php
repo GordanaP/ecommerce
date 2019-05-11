@@ -38,8 +38,23 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category = null)
     {
+        if ($category)
+        {
+            $category->delete();
+        }
+        else
+        {
+            $categories = Category::findMany(request('categories_ids'));
 
+            foreach ($categories as $category) {
+                $category->delete();
+            }
+        }
+
+        return response([
+            'message' => 'Deleted.'
+        ]);
     }
 }
