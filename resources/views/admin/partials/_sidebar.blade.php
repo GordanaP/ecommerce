@@ -1,4 +1,4 @@
-<div class="bg-grey-lighter p-4 h-screen" style="width: 15%;">
+<aside class="bg-grey-lighter p-4 h-screen" style="width: 15%;">
     <div class="w-4/5">
         <ul class="pl-0">
             <li class="d-flex justify-content-between align-items-center p-1">
@@ -8,4 +8,4 @@
             </li>
         </ul>
     </div>
-</div>
+</aside>

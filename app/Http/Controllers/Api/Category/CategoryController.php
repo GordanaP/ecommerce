@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Category;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\UseCases\RemoveResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Category\CategoryResourceCollection;
 
@@ -35,23 +36,13 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Category  $cate, gory
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category = null)
     {
-        if ($category)
-        {
-            $category->delete();
-        }
-        else
-        {
-            $categories = Category::findMany(request('categories_ids'));
-
-            foreach ($categories as $category) {
-                $category->delete();
-            }
-        }
+        (new RemoveResource('App\Category', $category))
+            ->perform(request('ids'));
 
         return response([
             'message' => 'Deleted.'

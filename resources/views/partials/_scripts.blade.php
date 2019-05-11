@@ -15,6 +15,7 @@
 
 <!-- Custom -->
 <script src="{{ asset('js/custom.js') }}" ></script>
+<script src="{{ asset('js/handle_checkboxes.js') }}" ></script>
 <script src="{{ asset('js/delete_checked.js') }}" ></script>
 
 @yield('scripts')
