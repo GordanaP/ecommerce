@@ -1,7 +1,3 @@
-<h3 class="mb-3">{{ ucfirst($items) }}</h3>
-
-<hr>
-
 <table class="table hover mt-2 datatable w-full" cellspacing="0" width="100%"
     id="{{ $items }}Table">
 

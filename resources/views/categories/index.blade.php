@@ -1,21 +1,18 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
-    <div class="container-fluid flex px-0">
 
-        @include('admin.partials._sidebar')
+    @datatable_header(['items' => 'categories'])
+    @enddatatable_header
 
-        <main class="p-4 w-full">
+    <hr>
 
-            @datatable(['items' => 'categories'])
+    @datatable(['items' => 'categories'])
 
-                <th>Title</th>
+        <th>Title</th>
 
-            @enddatatable
+    @enddatatable
 
-        </main>
-
-    </div>
 @endsection
 
 @section('scripts')

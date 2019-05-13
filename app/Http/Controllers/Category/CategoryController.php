@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Category;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -34,9 +35,19 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = Category::create($request->only('name'));
+
+        if(request()->submitButton == 'DoAndRepeat')
+        {
+            return back();
+        }
+        else
+        {
+
+            return redirect()->route('categories.show', $category);
+        }
     }
 
     /**
@@ -58,7 +69,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -68,9 +79,13 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        return $category->wasChanged() ? 'changed' : 'unchanged';
+
+        $category->update($request->only('name'));
+
+        return back();
     }
 
     /**

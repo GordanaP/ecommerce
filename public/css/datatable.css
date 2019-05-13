@@ -1,0 +1,17 @@
+.datatable thead tr th {
+  padding: 10px !important;
+}
+
+.page-item.active .page-link {
+  background: #7886d7;
+  border-color: #5661b3
+}
+
+.page-item.active .page-link:hover {
+  background: #5661b3;
+}
+
+.paginate_button:hover {
+  background: none !important;
+  border: none !important;
+}

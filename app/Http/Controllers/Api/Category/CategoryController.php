@@ -45,7 +45,7 @@ class CategoryController extends Controller
             ->perform(request('ids'));
 
         return response([
-            'message' => 'Deleted.'
+            'message' => 'Resource deleted.'
         ]);
     }
 }

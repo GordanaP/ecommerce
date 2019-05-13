@@ -12,6 +12,8 @@
 
         <div class="container-fluid flex px-0">
 
+            @include('admin.partials._sidebar')
+
             <main class="p-4 w-full">
                 @yield('content')
             </main>
