@@ -81,8 +81,6 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        return $category->wasChanged() ? 'changed' : 'unchanged';
-
         $category->update($request->only('name'));
 
         return back();
@@ -96,6 +94,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('categories.index');
     }
 }
