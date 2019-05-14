@@ -18,9 +18,9 @@ function deleteSingleRecord(items, datatable)
             url: deleteUrl,
             success: function(response) {
 
-                console.log(response.message)
-
                 datatable.ajax.reload();
+
+                sendSuccessNotification(response.alertMessage)
             }
         });
     });
@@ -53,7 +53,7 @@ function deleteManyRecords(items, datatable)
 
                 datatable.ajax.reload()
 
-                console.log(response.message)
+                sendSuccessNotification(response.alertMessage)
             }
         });
     });
@@ -74,4 +74,15 @@ function getCheckedValues(items)
     });
 
     return ids;
+}
+
+/**
+ * Send a succes notification to a user.
+ *
+ * @param  string message
+ * @return array
+ */
+function sendSuccessNotification(message)
+{
+    return toastr["success"](message)
 }

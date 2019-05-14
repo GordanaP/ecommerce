@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Category;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    use RedirectTo;
+
     /**
      * Display a listing of the resource.
      *
@@ -39,15 +42,8 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->only('name'));
 
-        if(request()->submitButton == 'DoAndRepeat')
-        {
-            return back();
-        }
-        else
-        {
-
-            return redirect()->route('categories.show', $category);
-        }
+        return $this->redirectAfterStoring('categories', $category)
+            ->with($this->storeResponse());
     }
 
     /**
@@ -83,7 +79,8 @@ class CategoryController extends Controller
     {
         $category->update($request->only('name'));
 
-        return back();
+        return $this->redirectAfterUpdate('categories', $category)
+            ->with($this->updateResponse());
     }
 
     /**
@@ -96,6 +93,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->route('categories.index');
+        return $this->redirectAfterDeleting('categories')
+            ->with($this->deleteResponse());
     }
 }

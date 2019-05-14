@@ -23,20 +23,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $cate, gory
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category = null)
@@ -45,7 +34,7 @@ class CategoryController extends Controller
             ->perform(request('ids'));
 
         return response([
-            'message' => 'Resource deleted.'
+            'alertMessage' => 'The record has been deleted.'
         ]);
     }
 }
