@@ -6,6 +6,12 @@
                     Categories
                 </a>
             </li>
+
+            <li class="d-flex justify-content-between align-items-center p-1">
+                <a href="{{ route('brands.index') }}">
+                    Brands
+                </a>
+            </li>
         </ul>
     </div>
 </aside>
