@@ -8,6 +8,9 @@
             @admin_side_link(['items' => 'brands'])
             @endadmin_side_link
 
+            @admin_side_link(['items' => 'products'])
+            @endadmin_side_link
+
         </ul>
     </div>
 </aside>

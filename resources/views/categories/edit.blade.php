@@ -2,18 +2,11 @@
 
 @section('content')
 
-    <div class="flex justify-between items-center">
-
-        <h3>Update Category</h3>
-
-        <a href="{{ route('categories.index') }}"> All Categories</a>
-
-    </div>
-
-    <hr>
+    @admin_save_header(['items' => 'categories'])
+        Update
+    @endadmin_save_header
 
     <div class="w-1/2" style="margin:auto">
-
         @include('categories.forms._save', [
 
             'route' => route('categories.update', $category),
@@ -22,7 +15,6 @@
             'button_redirect' => 'Update & View Category'
 
         ])
-
     </div>
 
 @endsection

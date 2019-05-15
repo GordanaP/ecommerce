@@ -24,7 +24,9 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('components.tables.datatable', 'datatable');
-        Blade::component('components.tables.datatable_header', 'datatable_header');
         Blade::component('components.links.admin_sidebar', 'admin_side_link');
+        Blade::component('components.headers.admin_show_header', 'admin_show_header');
+        Blade::component('components.headers.admin_save_header', 'admin_save_header');
+        Blade::component('components.headers.datatable_header', 'datatable_header');
     }
 }

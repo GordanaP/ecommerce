@@ -17,3 +17,8 @@ Route::resource('categories', 'Category\CategoryController');
  * Brand
  */
 Route::resource('brands', 'Brand\BrandController');
+
+/**
+ * Product
+ */
+Route::resource('products', 'Product\ProductController');

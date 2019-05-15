@@ -5,8 +5,6 @@
     @datatable_header(['items' => 'brands'])
     @enddatatable_header
 
-    <hr>
-
     @datatable(['items' => 'brands'])
 
         <th>Title</th>
