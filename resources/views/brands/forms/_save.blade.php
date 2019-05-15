@@ -2,7 +2,7 @@
 
     @csrf
 
-    @if (request()->route()->named('categories.edit'))
+    @if (request()->route()->named('brands.edit'))
         @method('PUT')
     @endif
 

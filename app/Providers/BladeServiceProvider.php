@@ -25,5 +25,6 @@ class BladeServiceProvider extends ServiceProvider
     {
         Blade::component('components.tables.datatable', 'datatable');
         Blade::component('components.tables.datatable_header', 'datatable_header');
+        Blade::component('components.links.admin_sidebar', 'admin_side_link');
     }
 }
