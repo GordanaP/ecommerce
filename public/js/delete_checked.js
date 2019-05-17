@@ -11,7 +11,7 @@ function deleteSingleRecord(items, datatable)
     $(document).on('click', '#'+toLower(items)+'DeleteOne', function() {
 
         var record = $(this).val();
-        var deleteUrl = 'api/'+ toLower(items) +'/' + record;
+        var deleteUrl = '/api/'+ toLower(items) +'/' + record;
 
         $.ajax({
             type: 'DELETE',
@@ -37,7 +37,7 @@ function deleteManyRecords(items, datatable)
 {
     $(document).on('click', '#deleteAll'+items, function() {
 
-        var deleteUrl = 'api/'+ toLower(items);
+        var deleteUrl = '/api/'+ toLower(items);
 
         $.ajax({
             type: 'DELETE',

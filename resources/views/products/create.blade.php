@@ -9,11 +9,20 @@
     <div class="w-1/2" style="margin:auto">
         @include('products.forms._save', [
 
-            'route' => route('products.store'),
+            'route' => request()->route('category')
+                ? route('categories.products.index', $category)
+                : request()->route('brand') ? route('brands.products.index', $brand)
+                : route('products.index'),
             'name' => old('name'),
             'description' => old('description'),
-            'category_id' => old('category_id'),
-            'brand_id' => old('brand_id'),
+            'category_id' =>
+                request()->route('category')
+                ? (old('category_id') ?: $category->id)
+                : old('category_id'),
+            'brand_id' =>
+                request()->route('brand')
+                ? (old('brand_id') ?: $brand->id)
+                : old('brand_id'),
             'button_back' => 'Create & Add Another Product',
             'button_redirect' => 'Create & View Product'
 

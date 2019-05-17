@@ -11,22 +11,34 @@ Route::name('api.')->group(function () {
     /**
      * Category
      */
+    Route::delete('categories/{category?}', 'Api\Category\CategoryController@destroy')
+        ->name('categories.destroy');
     Route::apiResource('categories', 'Api\Category\CategoryController', [
         'only' => ['index']
     ]);
 
-    Route::delete('categories/{category?}', 'Api\Category\CategoryController@destroy')
-        ->name('categories.destroy');
+    /**
+     * CategoryProduct
+     */
+    Route::apiResource('categories.products', 'Api\Category\CategoryProductController', [
+        'only' => ['index']
+    ]);
 
     /**
      * Brand
      */
+    Route::delete('brands/{brand?}', 'Api\Brand\BrandController@destroy')
+        ->name('brands.destroy');
     Route::apiResource('brands', 'Api\Brand\BrandController', [
         'only' => ['index']
     ]);
 
-    Route::delete('brands/{brand?}', 'Api\Brand\BrandController@destroy')
-        ->name('brands.destroy');
+    /**
+     * CategoryProduct
+     */
+    Route::apiResource('brands.products', 'Api\Brand\BrandProductController', [
+        'only' => ['index']
+    ]);
 
     /**
      * Product

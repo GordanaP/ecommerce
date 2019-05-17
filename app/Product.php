@@ -31,13 +31,23 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public static function createNew(array $data)
+    public static function createNew(array $data, Category $category = null, Brand $brand = null)
     {
+        // $product = new static($data);
+
+        // $product->category()->associate($data['category_id']);
+
+        // $product->brand()->associate($data['brand_id']);
+
+        // $product->save();
+
+        // return $product;
+
         $product = new static($data);
 
-        $product->category()->associate($data['category_id']);
+        $product->addCategory($category ?: $data['category_id']);
 
-        $product->brand()->associate($data['brand_id']);
+        $product->brand()->associate($brand ?: $data['brand_id']);
 
         $product->save();
 
@@ -53,5 +63,10 @@ class Product extends Model
         $this->brand()->associate($data['brand_id']);
 
         $this->save();
+    }
+
+    public function addCategory($category)
+    {
+        $this->category()->associate($category);
     }
 }

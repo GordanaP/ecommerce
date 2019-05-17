@@ -2,7 +2,7 @@
 
     @csrf
 
-    @if (request()->route()->named('products.edit'))
+    @if (request()->route('product'))
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
     <div class="form-group">
         <label for="description">Description</label>
         <textarea name="description" id="description" rows="5" class="shadow-md form-control
-        @error('description') is-invalid @enderror" placeholder="Enter name">{{ $description }}</textarea>
+        @error('description') is-invalid @enderror" placeholder="Enter description">{{ $description }}</textarea>
 
         @error('description')
             <span class="invalid-feedback" role="alert">
@@ -34,15 +34,21 @@
     <div class="form-group">
         <label for="category_id">Category</label>
         <select name="category_id" id="category_id" class="shadow-md form-control
-            @error('category_id') is-invalid @enderror">
-            <option value="">Select a category</option>
-            @foreach (App\Category::all() as $category)
-                <option value="{{ $category->id }}"
-                    {{ getSelected($category->id , $category_id) }}
-                >
-                    {{ $category->name }}
-                </option>
-            @endforeach
+            @error('category_id') is-invalid @enderror"
+            {{ request()->route('category') ? 'disabled' : '' }}
+        >
+            @if (request()->route('category'))
+                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+            @else
+                <option value="">Select a category</option>
+                @foreach (App\Category::all() as $category)
+                    <option value="{{ $category->id }}"
+                        {{ getSelected($category->id , $category_id) }}
+                    >
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            @endif
         </select>
 
         @error('category_id')
@@ -55,15 +61,21 @@
     <div class="form-group">
         <label for="brand_id">Brand</label>
         <select name="brand_id" id="brand_id" class="shadow-md form-control
-            @error('brand_id') is-invalid @enderror">
-            <option value="">Select a brand</option>
-            @foreach (App\Brand::all() as $brand)
-                <option value="{{ $brand->id }}"
-                    {{ getSelected($brand->id , $brand_id) }}
-                >
-                    {{ $brand->name }}
-                </option>
-            @endforeach
+            @error('brand_id') is-invalid @enderror"
+            {{ request()->route('brand') ? 'disabled' : '' }}
+        >
+            @if (request()->route('brand'))
+                <option value="{{ $brand->id }}" selected>{{ $brand->name }}</option>
+            @else
+                <option value="">Select a brand</option>
+                @foreach (App\Brand::all() as $brand)
+                    <option value="{{ $brand->id }}"
+                        {{ getSelected($brand->id , $brand_id) }}
+                    >
+                        {{ $brand->name }}
+                    </option>
+                @endforeach
+            @endif
         </select>
 
         @error('brand_id')

@@ -11,7 +11,7 @@ table(toLower(products)).DataTable({
         },
     ],
     "ajax": {
-        "url": "{{ route('api.products.index') }}",
+        "url": productsIndexUrl,
         "type": "GET"
     },
     "deferRender": true,
