@@ -27,10 +27,10 @@ table(toLower(items)).DataTable({
             data: 'ui',
         },
         {
-            data: 'title',
+            data: 'name',
         },
         {
-            data: 'price',
+            data: 'email',
         },
         {
           render: function(data, type, row, meta) {

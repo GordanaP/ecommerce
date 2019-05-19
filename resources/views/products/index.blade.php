@@ -34,23 +34,23 @@
 @section('scripts')
     <script>
 
-        var products = 'Products';
+        var items = 'Products';
 
         @if (request()->route('category'))
-            var productsIndexUrl = "{{ route('api.categories.products.index', $category) }}";
+            var itemsIndexUrl = "{{ route('api.categories.products.index', $category) }}";
         @elseif (request()->route('brand'))
-            var productsIndexUrl = "{{ route('api.brands.products.index', $brand) }}";
+            var itemsIndexUrl = "{{ route('api.brands.products.index', $brand) }}";
         @else
-            var productsIndexUrl = "{{ route('api.products.index') }}";
+            var itemsIndexUrl = "{{ route('api.products.index') }}";
         @endif
 
-        var productsDatatable = @include('products.tables._datatable')
+        var itemsDatatable = @include('products.tables._datatable')
 
-        handleDeleteCheckboxes(products)
+        handleDeleteCheckboxes(items)
 
-        deleteSingleRecord(products, productsDatatable);
+        deleteSingleRecord(items, itemsDatatable);
 
-        deleteManyRecords(products, productsDatatable)
+        deleteManyRecords(items, itemsDatatable)
 
     </script>
 @endsection

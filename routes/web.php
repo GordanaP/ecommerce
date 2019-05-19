@@ -9,6 +9,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
+ * Customer
+ */
+Route::resource('customers', 'Customer\CustomerController');
+
+/**
  * Category
  */
 Route::resource('categories', 'Category\CategoryController');

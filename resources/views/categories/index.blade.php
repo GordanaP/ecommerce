@@ -3,6 +3,9 @@
 @section('content')
 
     @datatable_header(['items' => 'categories'])
+
+        {{ route('categories.create') }}
+
     @enddatatable_header
 
     @datatable(['items' => 'categories'])
@@ -16,14 +19,17 @@
 @section('scripts')
     <script>
 
-        var categories = 'Categories';
-        var categoriesDatatable = @include('categories.tables._datatable')
+        var items = 'Categories';
 
-        handleDeleteCheckboxes(categories)
+        var itemsIndexUrl = "{{ route('api.categories.index') }}";
 
-        deleteSingleRecord(categories, categoriesDatatable);
+        var itemsDatatable = @include('categories.tables._datatable')
 
-        deleteManyRecords(categories, categoriesDatatable)
+        handleDeleteCheckboxes(items)
+
+        deleteSingleRecord(items, itemsDatatable);
+
+        deleteManyRecords(items, itemsDatatable)
 
     </script>
 @endsection

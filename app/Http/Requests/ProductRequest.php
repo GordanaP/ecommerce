@@ -47,6 +47,12 @@ class ProductRequest extends FormRequest
                 'sometimes', 'required',
                 Rule::in(Brand::all()->pluck('id')),
             ],
+            'image' => [
+                'nullable', 'image'
+            ],
+            'delete_image' => [
+                'nullable',
+            ],
         ];
     }
 }

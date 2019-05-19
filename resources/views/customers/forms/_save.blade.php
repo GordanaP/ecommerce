@@ -110,6 +110,12 @@
         @if (! request()->route('product'))
             <input type="file" name="image" id="image"
             class="@error('image') is-invalid @enderror" />
+
+            @error('image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         @else
             <div class="flex">
                 <span class="w-1/5 mr-3">
@@ -118,6 +124,12 @@
                 <span class="w-4/5">
                     <input type="file" name="image" id="image"
                     class="@error('image') is-invalid @enderror" />
+
+                    @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
 
                     @if ($product->image->image != null)
                         <div class="checkbox mt-6">
@@ -131,12 +143,6 @@
                 </span>
             </div>
         @endif
-
-        @error('image')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
     </div>
 
     <!-- Buttons -->
