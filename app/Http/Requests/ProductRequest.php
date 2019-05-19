@@ -6,6 +6,7 @@ use App\Brand;
 use App\Category;
 use App\Rules\AlphaDashSpace;
 use Illuminate\Validation\Rule;
+use App\Rules\IsTwoDecimalsFloat;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -34,6 +35,10 @@ class ProductRequest extends FormRequest
                 Rule::unique('products')->ignore($this->product),
             ],
             'description' => ['sometimes', 'required'],
+            'price' => [
+                'required',
+                new IsTwoDecimalsFloat
+            ],
             'category_id' => [
                 'sometimes', 'required',
                 Rule::in(Category::all()->pluck('id')),

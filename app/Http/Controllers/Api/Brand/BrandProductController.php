@@ -13,7 +13,7 @@ class BrandProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Brand $brand)
+    public function index(Brand $brand) : ProductResourceCollection
     {
         return new ProductResourceCollection($brand->products);
     }

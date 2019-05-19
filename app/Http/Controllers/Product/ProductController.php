@@ -91,7 +91,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        // $product->image->removeFromStorage($product->image);
+
+        // $product->delete();
+        //
+        $product->remove();
 
         return $this->redirectAfterDeleting('products')
             ->with($this->deleteResponse());

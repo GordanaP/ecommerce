@@ -51,6 +51,9 @@ class RemoveResource
     private function deleteMany($ids)
     {
         $this->getResources($ids)->each(function ($resource) {
+
+            optional($resource->image)->removeFromStorage($resource->image);
+
             $resource->delete();
         });
     }
@@ -62,6 +65,8 @@ class RemoveResource
      */
     private function deleteOne()
     {
+        optional($this->instance->image)->removeFromStorage($this->instance->image);
+
         $this->instance->delete();
     }
 

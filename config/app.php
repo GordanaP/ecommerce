@@ -71,6 +71,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Currency
+    |--------------------------------------------------------------------------
+    |
+    | This value is the currency of your application. This value is used when the
+    | framework needs to place the application's currency in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'currency' => env('APP_CURRENCY', '$'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |
@@ -176,6 +189,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
+        App\Providers\UtilityServiceProvider::class,
 
     ],
 
@@ -227,7 +241,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Price' => App\Services\Utilities\Product\Price::class
     ],
 
 ];

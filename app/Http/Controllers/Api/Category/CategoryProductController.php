@@ -13,7 +13,7 @@ class CategoryProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index(Category $category) : ProductResourceCollection
     {
         return new ProductResourceCollection($category->products);
     }

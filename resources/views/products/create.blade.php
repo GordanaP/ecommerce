@@ -15,6 +15,7 @@
                 : route('products.index'),
             'name' => old('name'),
             'description' => old('description'),
+            'price' => old('price'),
             'category_id' =>
                 request()->route('category')
                 ? (old('category_id') ?: $category->id)

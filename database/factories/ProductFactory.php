@@ -11,6 +11,7 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->paragraph(1),
+        'price' => rand(1, 100),
         'category_id' => Category::inRandomOrder()->first()->id,
         'brand_id' => Brand::inRandomOrder()->first()->id,
     ];
