@@ -2,30 +2,23 @@
 
 @section('content')
 
-    @admin_save_header(['items' => 'products'])
+    @admin_save_header(['items' => 'customers'])
         Add
     @endadmin_save_header
 
     <div class="w-1/2" style="margin:auto">
-        @include('products.forms._save', [
+        @include('customers.forms._save', [
 
-            'route' => request()->route('category')
-                ? route('categories.products.index', $category)
-                : request()->route('brand') ? route('brands.products.index', $brand)
-                : route('products.index'),
-            'name' => old('name'),
-            'description' => old('description'),
-            'price' => old('price'),
-            'category_id' =>
-                request()->route('category')
-                ? (old('category_id') ?: $category->id)
-                : old('category_id'),
-            'brand_id' =>
-                request()->route('brand')
-                ? (old('brand_id') ?: $brand->id)
-                : old('brand_id'),
-            'button_back' => 'Create & Add Another Product',
-            'button_redirect' => 'Create & View Product'
+            'route' => route('customers.store'),
+            'first_name' => old('first_name'),
+            'last_name' => old('last_name'),
+            'address' => old('address'),
+            'postal_code' => old('postal_code'),
+            'city' => old('city'),
+            'email' => old('email'),
+            'phone' => old('phone'),
+            'button_back' => 'Create & Add Another Customer',
+            'button_redirect' => 'Create & View Customer'
 
         ])
     </div>

@@ -51,10 +51,9 @@ class Product extends Model
     {
         $attributes = static::presentAttributes($data);
 
-
-        $product = (new static($attributes))
+        $product = tap((new static($attributes))
             ->addCategory($category ?: $data['category_id'])
-            ->addBrand($brand ?: $data['brand_id'])
+            ->addBrand($brand ?: $data['brand_id']))
             ->save();
 
         return $product;

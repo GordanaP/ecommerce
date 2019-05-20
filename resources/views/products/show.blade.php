@@ -8,10 +8,8 @@
 
     <div class="card card-body">
 
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Id</p>
-            <p class="text-grey-dark">{{ $product->id }}</p>
-        </div>
+        @identifier(['model' => $product])
+        @endidentifier
 
         <hr class="border-t border-grey-lighter">
 
@@ -32,7 +30,7 @@
                 </a>
 
                 <p class="collapse text-grey-dark" id="collapseProduct">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    {{ $product->description }}
                 </p>
             </div>
         </div>
@@ -73,17 +71,8 @@
 
         <hr class="border-t border-grey-lighter">
 
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Created</p>
-            <p class="text-grey-dark">{{ $product->creation_date }}</p>
-        </div>
-
-        <hr class="border-t border-grey-lighter">
-
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Last change</p>
-            <p class="text-grey-dark">{{ $product->last_change_date }}</p>
-        </div>
+        @timestamps(['model' => $product])
+        @endtimestamps
 
     </div>
 

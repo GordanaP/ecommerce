@@ -128,8 +128,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'postal_code' => [
+            'postal_code' => 'The :attribute field must be a valid postal code.',
+        ],
+        'phone' => [
+            'phone' => 'The :attribute field must be a valid phone number.',
         ],
     ],
 

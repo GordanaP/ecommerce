@@ -1,148 +1,109 @@
-<form action="{{ $route }}" method="POST" enctype="multipart/form-data" >
+<form action="{{ $route }}" method="POST">
 
     @csrf
 
-    @if (request()->route('product'))
+    @if (request()->route('customer'))
         @method('PUT')
     @endif
 
-    <!-- Name -->
+    <!-- First Name -->
     <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" class="shadow-md form-control
-        @error('name') is-invalid @enderror" placeholder="Enter name"
-        value="{{ $name }}" />
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" id="first_name" class="shadow-md form-control
+        @error('first_name') is-invalid @enderror" placeholder="Enter first name"
+        value="{{ $first_name }}" />
 
-        @error('name')
+        @error('first_name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
 
-    <!-- Description -->
+    <!-- Last Name -->
     <div class="form-group">
-        <label for="description">Description</label>
-        <textarea name="description" id="description" rows="3" class="shadow-md form-control
-        @error('description') is-invalid @enderror" placeholder="Enter description">{{ $description }}</textarea>
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" id="last_name" class="shadow-md form-control
+        @error('last_name') is-invalid @enderror" placeholder="Enter last name"
+        value="{{ $last_name }}" />
 
-        @error('description')
+        @error('last_name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
 
-    <!-- Price -->
+    <!-- Address -->
     <div class="form-group">
-        <label for="price">Price ({{ config('app.currency') }})</label>
-        <input type="text" name="price" id="price" class="shadow-md form-control
-        @error('price') is-invalid @enderror" placeholder="00.00"
-        value="{{ $price }}" />
+        <label for="address">Street Address</label>
+        <input type="text" name="address" id="address" class="shadow-md form-control
+        @error('address') is-invalid @enderror" placeholder="Enter street address"
+        value="{{ $address }}" />
 
-        @error('price')
+        @error('address')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
 
-    <!-- Category -->
-    <div class="form-group">
-        <label for="category_id">Category</label>
-        <select name="category_id" id="category_id" class="shadow-md form-control
-            @error('category_id') is-invalid @enderror"
-            {{ request()->route('category') ? 'disabled' : '' }}
-        >
-            @if (request()->route('category'))
-                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-            @else
-                <option value="">Select a category</option>
-                @foreach (App\Category::all() as $category)
-                    <option value="{{ $category->id }}"
-                        {{ getSelected($category->id , $category_id) }}
-                    >
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            @endif
-        </select>
+    <div class="flex">
+        <!-- Postal Code -->
+        <div class="form-group w-full pr-1">
+            <label for="postal_code">ZIP code</label>
+            <input type="text" name="postal_code" id="postal_code" class="shadow-md form-control
+            @error('postal_code') is-invalid @enderror" placeholder="Enter postal code"
+            value="{{ $postal_code }}" />
 
-        @error('category_id')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-
-    <!-- Brand -->
-    <div class="form-group">
-        <label for="brand_id">Brand</label>
-        <select name="brand_id" id="brand_id" class="shadow-md form-control
-            @error('brand_id') is-invalid @enderror"
-            {{ request()->route('brand') ? 'disabled' : '' }}
-        >
-            @if (request()->route('brand'))
-                <option value="{{ $brand->id }}" selected>{{ $brand->name }}</option>
-            @else
-                <option value="">Select a brand</option>
-                @foreach (App\Brand::all() as $brand)
-                    <option value="{{ $brand->id }}"
-                        {{ getSelected($brand->id , $brand_id) }}
-                    >
-                        {{ $brand->name }}
-                    </option>
-                @endforeach
-            @endif
-        </select>
-
-        @error('brand_id')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-
-    <!-- Image -->
-    <div class="form-group flex flex-col">
-        <label for="image">Image</label>
-
-        @if (! request()->route('product'))
-            <input type="file" name="image" id="image"
-            class="@error('image') is-invalid @enderror" />
-
-            @error('image')
+            @error('postal_code')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        @else
-            <div class="flex">
-                <span class="w-1/5 mr-3">
-                    <img src="{{ $product->image->display() }}" alt="{{ $product->name }}" class="w-full">
-                </span>
-                <span class="w-4/5">
-                    <input type="file" name="image" id="image"
-                    class="@error('image') is-invalid @enderror" />
+        </div>
 
-                    @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+        <!-- City -->
+        <div class="form-group w-full pl-1">
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" class="shadow-md form-control
+            @error('city') is-invalid @enderror" placeholder="Enter city"
+            value="{{ $city }}" />
 
-                    @if ($product->image->image != null)
-                        <div class="checkbox mt-6">
-                            <label class="checkbox-container">
-                                <input type="checkbox" class="checkitem" name="delete_image" >
-                                <span class="checkmark" id="file"></span>
-                            </label>
-                            <span class="text-sm ml-8">Delete image</span>
-                        </div>
-                    @endif
+            @error('city')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
                 </span>
-            </div>
-        @endif
+            @enderror
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        <label for="email">E-mail address</label>
+        <input type="text" name="email" id="email" class="shadow-md form-control
+        @error('email') is-invalid @enderror" placeholder="example@domain.com"
+        value="{{ $email }}" />
+
+        @error('email')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" name="phone" id="phone" class="shadow-md form-control
+        @error('phone') is-invalid @enderror" placeholder="Enter phone number"
+        value="{{ $phone }}" />
+
+        @error('phone')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
     </div>
 
     <!-- Buttons -->

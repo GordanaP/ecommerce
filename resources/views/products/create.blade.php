@@ -10,9 +10,9 @@
         @include('products.forms._save', [
 
             'route' => request()->route('category')
-                ? route('categories.products.index', $category)
-                : request()->route('brand') ? route('brands.products.index', $brand)
-                : route('products.index'),
+                ? route('categories.products.store', $category)
+                : request()->route('brand') ? route('brands.products.store', $brand)
+                : route('products.store'),
             'name' => old('name'),
             'description' => old('description'),
             'price' => old('price'),

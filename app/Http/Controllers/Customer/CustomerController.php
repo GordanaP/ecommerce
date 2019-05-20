@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Customer;
-use Illuminate\Http\Request;
+use App\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
+    use RedirectTo;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,18 +28,21 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        $customer = Customer::create($request->all());
+
+        return $this->redirectAfterStoring('customers', $customer)
+            ->with($this->storeResponse());
     }
 
     /**
@@ -47,7 +53,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customers.show', compact('customer'));
     }
 
     /**
@@ -58,19 +64,22 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customers.edit', compact('customer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CustomerRequest  $request
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update($request->all());
+
+        return $this->redirectAfterUpdate('customers', $customer)
+            ->with($this->updateResponse());
     }
 
     /**
@@ -81,6 +90,9 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+
+        return $this->redirectAfterDeleting('customers')
+            ->with($this->deleteResponse());
     }
 }

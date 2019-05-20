@@ -28,5 +28,8 @@ class BladeServiceProvider extends ServiceProvider
         Blade::component('components.headers.admin_show_header', 'admin_show_header');
         Blade::component('components.headers.admin_save_header', 'admin_save_header');
         Blade::component('components.headers.datatable_header', 'datatable_header');
+        Blade::component('components.presentables.timestamps', 'timestamps');
+        Blade::component('components.presentables.identifier', 'identifier');
+        Blade::component('components.presentables.related_products', 'related_products');
     }
 }

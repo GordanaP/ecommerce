@@ -2,88 +2,71 @@
 
 @section('content')
 
-    @admin_show_header(['parameter' => $product])
-        products
+    @admin_show_header(['parameter' => $customer])
+        customers
     @endadmin_show_header
 
     <div class="card card-body">
 
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Id</p>
-            <p class="text-grey-dark">{{ $product->id }}</p>
-        </div>
+        @identifier(['model' => $customer])
+        @endidentifier
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
             <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Name</p>
-            <p class="text-grey-dark">{{ $product->name }}</p>
-        </div>
-
-        <hr class="border-t border-grey-lighter">
-
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Description</p>
-
-            <div class="flex-col w-1/2">
-
-                <a data-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct" class="underline">
-                    Click here
-                </a>
-
-                <p class="collapse text-grey-dark" id="collapseProduct">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </p>
-            </div>
+            <p class="text-grey-dark">{{ $customer->full_name }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
             <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
-                Price ({{ config('app.currency') }})
+                Street Address
             </p>
-            <p class="text-grey-dark">{{ Price::toFloat($product->present_price) }}</p>
+            <p class="text-grey-dark">{{ $customer->address }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Category</p>
-            <a href="{{ route('categories.show', $product->category) }}">
-                {{ $product->category->name }}
-            </a>
+            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
+                Postal Code
+            </p>
+            <p class="text-grey-dark">{{ $customer->postal_code }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Brand</p>
-            <a href="{{ route('brands.show', $product->brand) }}">
-                {{ $product->brand->name }}
-            </a>
+            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
+                City
+            </p>
+            <p class="text-grey-dark">{{ $customer->city }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Image</p>
-            <img src="{{ $product->image->display() }}" alt="" style="width: 50px; height: 50px">
+            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
+                E-mail address
+            </p>
+            <p class="text-grey-dark">{{ $customer->email }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
         <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Created</p>
-            <p class="text-grey-dark">{{ $product->creation_date }}</p>
+            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
+                Phone number
+            </p>
+            <p class="text-grey-dark">{{ $customer->phone }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">
 
-        <div class="flex">
-            <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">Last change</p>
-            <p class="text-grey-dark">{{ $product->last_change_date }}</p>
-        </div>
+        @timestamps(['model' => $customer])
+        @endtimestamps
 
     </div>
 
