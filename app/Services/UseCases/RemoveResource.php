@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases;
+namespace App\Services\UseCases;
 
 class RemoveResource
 {

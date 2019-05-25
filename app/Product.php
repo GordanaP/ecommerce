@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Facades\Price;
 use App\Traits\HasDate;
-use Illuminate\Database\Eloquent\Model;
 use App\Services\ValueObjects\Image;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -22,6 +23,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
     public function setNameAttribute($value)
     {
         return $this->attributes['name'] = strtolower($value);
@@ -29,7 +35,7 @@ class Product extends Model
 
     public function setPriceAttribute($value)
     {
-        return $this->attributes['price'] = $value * 100;
+        return $this->attributes['price'] = Price::toFractal($value);
     }
 
     public function getNameAttribute($value)
@@ -39,7 +45,7 @@ class Product extends Model
 
     public function getPresentPriceAttribute()
     {
-        return $this->price/100;
+        return Price::toUnit($this->price);
     }
 
     public function getImageAttribute($value)

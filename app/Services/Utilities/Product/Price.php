@@ -11,8 +11,18 @@ class Price
      * @param  integer $decimals
      * @return float
      */
-    public static function toFloat($number, $decimals = 2)
+    public function getFormatted($number, $decimals = 2)
     {
         return number_format($number, $decimals);
+    }
+
+    public function toFractal($unit)
+    {
+        return $unit * 100;
+    }
+
+    public function toUnit($fractal)
+    {
+        return static::getFormatted($fractal/100);
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Product;
 
 use App\Product;
 use Illuminate\Http\Request;
-use App\UseCases\RemoveResource;
 use App\Http\Controllers\Controller;
+use App\Services\UseCases\RemoveResource;
 use App\Http\Resources\Product\ProductResourceCollection;
 
 class ProductController extends Controller

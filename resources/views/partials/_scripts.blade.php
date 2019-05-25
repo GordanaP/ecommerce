@@ -14,10 +14,22 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 
+<!-- Sweetalert2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+
 <!-- Custom -->
 <script src="{{ asset('js/custom.js') }}" ></script>
 <script src="{{ asset('js/handle_checkboxes.js') }}" ></script>
 <script src="{{ asset('js/delete_checked.js') }}" ></script>
+
+<!-- CSRF token -->
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 
 
 <!-- Toaster -->

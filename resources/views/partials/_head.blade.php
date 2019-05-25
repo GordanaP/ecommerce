@@ -24,9 +24,12 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" />
 
+<!-- SweetaAlert2 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" />
 
 <!-- Custom -->
 <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 <link href="{{ asset('css/checkbox.css') }}" rel="stylesheet">
 <link href="{{ asset('css/datatable.css') }}" rel="stylesheet">
 
+@yield('links')

@@ -108,15 +108,25 @@
 
     <!-- Buttons -->
     <div class="form-group">
-        <button type="submit" name="submitButton" value="DoAndDisplay"
-        class="btn bg-teal-light text-white hover:bg-teal-dark pull-right">
-            {{ $button_redirect }}
-        </button>
 
-        <button type="submit" name="submitButton" value="DoAndRepeat"
-        class="btn bg-teal-light text-white hover:bg-teal-dark pull-right mr-2">
-            {{ $button_back }}
-        </button>
+        @if (Request::route()->named('orders.create'))
+            <button type="submit" name="submitButton" value="ProceedToOrder"
+            class="btn bg-teal-light text-white hover:bg-teal-dark pull-right">
+            Next
+                <svg class="fill-current text-white ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7H2v6h8v5l8-8-8-8v5z"/></svg>
+            </button>
+        @else
+            <button type="submit" name="submitButton" value="DoAndDisplay"
+            class="btn bg-teal-light text-white hover:bg-teal-dark pull-right">
+                {{ $button_redirect ?? '' }}
+            </button>
+
+            <button type="submit" name="submitButton" value="DoAndRepeat"
+            class="btn bg-teal-light text-white hover:bg-teal-dark pull-right mr-2">
+                {{ $button_back ?? '' }}
+            </button>
+        @endif
+
     </div>
 
 </form>

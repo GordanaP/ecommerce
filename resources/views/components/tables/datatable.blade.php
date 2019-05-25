@@ -2,12 +2,14 @@
     id="{{ $items }}Table">
 
     <thead class="bg-grey-lightest text-grey-dark text-xs uppercase">
-        <th style="width: 5%">
-            <label class="checkbox-container mb-4">
-                <input type="checkbox" id="checkAll{{ ucfirst($items) }}">
-                <span class="checkmark"></span>
-            </label>
-        </th>
+        @if (! Request::route()->named('customers.carts.create'))
+            <th style="width: 5%">
+                <label class="checkbox-container mb-4">
+                    <input type="checkbox" id="checkAll{{ ucfirst($items) }}">
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+        @endif
 
         <th style="width: 10%">UI</th>
 

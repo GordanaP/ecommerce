@@ -6,13 +6,13 @@
         Update
     @endadmin_save_header
 
-    <div class="w-1/2" style="margin:auto">
+    <div class="w-1/2 mx-auto">
         @include('products.forms._save', [
 
             'route' => route('products.update', $product),
             'name' => old('name') ?: $product->name,
             'description' => old('description') ?: $product->description,
-            'price' => old('price') ?: Price::toFloat($product->present_price),
+            'price' => old('price') ?: Price::getFormatted($product->present_price),
             'category_id' => old('category_id') ?: $product->category_id,
             'brand_id' => old('brand_id') ?: $product->brand_id,
             'button_back' => 'Update & Update Again',

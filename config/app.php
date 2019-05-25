@@ -241,7 +241,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Price' => App\Services\Utilities\Product\Price::class
+        'Price' => App\Facades\Price::class,
+        'ShoppingCart' => App\Facades\ShoppingCart::class,
     ],
 
 ];

@@ -6,7 +6,7 @@
         Update
     @endadmin_save_header
 
-    <div class="w-1/2" style="margin:auto">
+    <div class="w-1/2 mx-auto">
         @include('brands.forms._save', [
 
             'route' => route('brands.update', $brand),

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Category;
 
 use App\Category;
 use Illuminate\Http\Request;
-use App\UseCases\RemoveResource;
 use App\Http\Controllers\Controller;
+use App\Services\UseCases\RemoveResource;
 use App\Http\Resources\Category\CategoryResourceCollection;
 
 class CategoryController extends Controller

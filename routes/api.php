@@ -9,6 +9,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::name('api.')->group(function () {
 
     /**
+     * Order
+     */
+    Route::delete('orders/{order?}', 'Api\Order\OrderController@destroy')
+        ->name('orders.destroy');
+    Route::apiResource('orders', 'Api\Order\OrderController', [
+        'only' => ['index']
+    ]);
+
+    /**
+     * OrderProduct
+     */
+    Route::apiResource('orders.products', 'Api\Order\OrderProductController', [
+        'only' => ['index']
+    ]);
+
+    /**
      * Customer
      */
     Route::delete('customers/{customer?}', 'Api\Customer\CustomerController@destroy')
@@ -43,7 +59,7 @@ Route::name('api.')->group(function () {
     ]);
 
     /**
-     * CategoryProduct
+     * BrandProduct
      */
     Route::apiResource('brands.products', 'Api\Brand\BrandProductController', [
         'only' => ['index']

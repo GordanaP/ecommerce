@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Customer;
 use App\Traits\RedirectTo;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 
@@ -37,12 +38,21 @@ class CustomerController extends Controller
      * @param  \App\Http\Requests\CustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        $customer = Customer::create($request->all());
+        // $customer = Customer::create($request->all());
+        $customer = Customer::first();
 
-        return $this->redirectAfterStoring('customers', $customer)
-            ->with($this->storeResponse());
+        if($request->submitButton == 'ProceedToOrder')
+        {
+            return redirect()->route('customers.carts.create', compact('customer'))
+                ->with($this->storeResponse());
+        }
+        else
+        {
+            return $this->redirectAfterStoring('customers', $customer)
+                ->with($this->storeResponse());
+        }
     }
 
     /**

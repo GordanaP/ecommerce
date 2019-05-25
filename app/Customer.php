@@ -13,6 +13,11 @@ class Customer extends Model
         'first_name', 'last_name', 'address', 'city', 'postal_code', 'phone', 'email'
     ];
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->first_name .' ' .$this->last_name;

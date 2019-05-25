@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Customer;
 
 use App\Customer;
 use Illuminate\Http\Request;
-use App\UseCases\RemoveResource;
 use App\Http\Controllers\Controller;
+use App\Services\UseCases\RemoveResource;
 use App\Http\Resources\Customer\CustomerResourceCollection;
 
 class CustomerController extends Controller
@@ -15,7 +15,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() : CustomerResourceCollection
     {
         $customers = Customer::all();
 
