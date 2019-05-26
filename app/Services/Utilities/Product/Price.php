@@ -25,4 +25,9 @@ class Price
     {
         return static::getFormatted($fractal/100);
     }
+
+    public function present($fractal)
+    {
+        return config('app.currency') .self::toUnit($fractal);
+    }
 }

@@ -37,8 +37,7 @@ class CartController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        ShoppingCart::addItem($product);
-        // ShoppingCart::empty('laracommerce');
+        ShoppingCart::addItem($product, 1, 'laracommerce');
 
         return response([
             'message' => 'A new item has been added to your cart.'
@@ -74,9 +73,11 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $rowId)
     {
-        //
+        ShoppingCart::updateItem($rowId, $request->qty, 'laracommerce');
+
+        return back()->with(getAlert('The cart has been updated', 'success'));
     }
 
     /**
@@ -85,9 +86,16 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
-        //
+        ShoppingCart::removeItem($rowId, 'laracommerce');
+
+        return back()->with(getAlert('The item has been removed from the cart.', 'success'));
+    }
+
+    public function empty()
+    {
+
     }
 
 }

@@ -18,7 +18,7 @@ class ShoppingCart
      * @param string $cart
      * @return  void
      */
-    public function addItem($product, $cart='laracommerce', $qty = 1)
+    public function addItem($product, $qty = 1, $cart)
     {
         $this->createCartContent($product, $qty, $cart);
     }
@@ -41,7 +41,7 @@ class ShoppingCart
      * @param string $cart
      * @return void
      */
-    public function removeItem($rowId, $cart = 'default')
+    public function removeItem($rowId, $cart)
     {
         $this->removeFromCartContent($rowId, $cart);
     }
@@ -54,7 +54,7 @@ class ShoppingCart
      * @param string $cart
      * @return void
      */
-    public function updateItem($rowId, $qty, $cart = 'default')
+    public function updateItem($rowId, $qty, $cart)
     {
         $this->updateItemQuantity($rowId, $qty, $cart);
     }
@@ -76,7 +76,7 @@ class ShoppingCart
      * @param string $cart
      * @return integer
      */
-    public function itemsCount($cart = 'default')
+    public function itemsCount($cart)
     {
         return $this->calculateCartItemsCount($cart);
     }
@@ -88,7 +88,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return boolean
      */
-    public function hasProduct($product, $cart='default')
+    public function hasProduct($product, $cart)
     {
         // return ShoppingCart::getItems($cart)->firstWhere($this->itemIdentifier($cart), $product->id);
         return self::getItems($cart)->firstWhere($this->itemIdentifier($cart), $product->id);
@@ -100,7 +100,7 @@ class ShoppingCart
      * @param string $cart
      * @return float
      */
-    public function subtotal($cart = 'default')
+    public function subtotal($cart)
     {
         return $this->calculateCartSubtotal($cart);
     }
@@ -111,7 +111,7 @@ class ShoppingCart
      * @param string $cart
      * @return float;
      */
-    public function tax($cart = 'default')
+    public function tax($cart)
     {
         return $this->calculateCartTax($cart);
     }
@@ -122,7 +122,7 @@ class ShoppingCart
      * @param string $cart
      * @return float
      */
-    public function total($cart = 'default')
+    public function total($cart)
     {
         return $this->calculateCartTotal($cart);
     }

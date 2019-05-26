@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
 
 class CustomerCartController extends Controller
@@ -47,7 +48,9 @@ class CustomerCartController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        $cartItems = ShoppingCart::getItems('laracommerce');
+
+        return view('carts.show', compact('customer', 'cartItems'));
     }
 
     /**

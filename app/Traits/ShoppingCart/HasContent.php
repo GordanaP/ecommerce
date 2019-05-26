@@ -35,9 +35,7 @@ trait HasContent
      */
     protected function getCartContent($cart)
     {
-        $content = Session::has($cart) ? Session::get($cart) : new Collection;
-
-        return $content;
+        return Session::has($cart) ? Session::get($cart) : new Collection;
     }
 
     /**
@@ -82,11 +80,9 @@ trait HasContent
      * @param  string $cart
      * @return integer
      */
-    protected function itemIdentifier($cart = 'default')
+    protected function itemIdentifier($cart = 'laracommerce')
     {
-        $identifier = $cart == 'default' ? 'product_id' : 'id';
-
-        return $identifier;
+        return $cart == 'laracommerce' ? 'product_id' : 'id';
     }
 
     /**
@@ -100,7 +96,7 @@ trait HasContent
     {
         $product->qty = $qty;
 
-        $product->subtotal = Price::getFormatted($product->price * $product->qty);
+        $product->subtotal = $product->price * $product->qty;
 
         return $product;
     }
@@ -154,21 +150,16 @@ trait HasContent
     {
         $content = $this->getCartContent($cart);
 
-        $item = $content->get($rowId);
-
-        return $item;
+        return $content->get($rowId);
     }
 
-    /**
-     * Generate the item's rowId.
+    /** item's rowId.
      *
-     * @param  integer $id
+     * @pram  integer $id
      * @return string
      */
     private function generateRowId($id)
     {
-        $rowId = md5($id);
-
-        return $rowId;
+        return md5($id);
     }
 }
