@@ -37,11 +37,21 @@ class CartController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        ShoppingCart::addItem($product, 1, 'laracommerce');
+        if(ShoppingCart::hasProduct($product, config('cart.name'))) {
 
-        return response([
-            'message' => 'A new item has been added to your cart.'
-        ]);
+            $response = response([
+                'message' => 'The item is already in your cart.'
+            ]);
+        }
+        else{
+            ShoppingCart::addItem($product, 1, config('cart.name'));
+
+            $response = response([
+                'message' => 'A new item has been added to your cart.'
+            ]);
+        }
+
+        return $response;
     }
 
     /**
@@ -75,7 +85,7 @@ class CartController extends Controller
      */
     public function update(Request $request, $rowId)
     {
-        ShoppingCart::updateItem($rowId, $request->qty, 'laracommerce');
+        ShoppingCart::updateItem($rowId, $request->qty, config('cart.name'));
 
         return back()->with(getAlert('The cart has been updated', 'success'));
     }
@@ -88,7 +98,7 @@ class CartController extends Controller
      */
     public function destroy($rowId)
     {
-        ShoppingCart::removeItem($rowId, 'laracommerce');
+        ShoppingCart::removeItem($rowId, config('cart.name'));
 
         return back()->with(getAlert('The item has been removed from the cart.', 'success'));
     }

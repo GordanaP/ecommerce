@@ -28,6 +28,6 @@ class Price
 
     public function present($fractal)
     {
-        return config('app.currency') .self::toUnit($fractal);
+        return config('cart.currency') . self::toUnit($fractal);
     }
 }

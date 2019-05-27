@@ -41,7 +41,7 @@
 
             <div class="flex">
                 <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
-                    Price ({{ config('app.currency') }})
+                    Price ({{ config('cart.currency') }})
                 </p>
                 <p class="text-grey-dark">{{ Price::getFormatted($product->present_price) }}</p>
             </div>

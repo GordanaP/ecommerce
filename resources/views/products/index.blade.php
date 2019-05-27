@@ -25,7 +25,7 @@
     @datatable(['items' => 'products'])
 
         <th>Title</th>
-        <th>Price ({{ config('app.currency') }})</th>
+        <th>Price ({{ config('cart.currency') }})</th>
 
     @enddatatable
 

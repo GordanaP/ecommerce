@@ -2,6 +2,8 @@
 
 namespace App\Services\Utilities\ShoppingCart;
 
+use App\Facades\Price;
+use Illuminate\Support\Collection;
 use App\Traits\ShoppingCart\HasPrice;
 use App\Traits\ShoppingCart\HasContent;
 use Illuminate\Support\Facades\Session;
@@ -13,56 +15,75 @@ class ShoppingCart
     /**
      * Add an item to the cart.
      *
-     * @param \App\Product $product
-     * @param integer $qty
-     * @param string $cart
-     * @return  void
+     * @param  \App\Product  $product
+     * @param  integer  $qty
+     * @param  string  $cart
+     * @return void
      */
     public function addItem($product, $qty = 1, $cart)
     {
-        $this->createCartContent($product, $qty, $cart);
+        $item    = $this->createItem($product, $qty);
+
+        $content = $this->getContent($cart);
+
+        $this->addToCart($item, $content);
+
+        $this->updateCart($cart, $content);
     }
 
     /**
      * Get the cart content.
      *
-     * @param string $cart
+     * @param  string  $cart
      * @return \Illuminate\Support\Collection
      */
-    public function getItems($cart)
+    public function getContent($cart)
     {
-        return $this->getCartContent($cart);
+        return Session::has($cart) ? Session::get($cart) : new Collection;
     }
 
     /**
-     * Remove the item from the cart.
+     * Remove an item from the cart.
      *
-     * @param string $rowId
-     * @param string $cart
+     * @param  string  $rowId
+     * @param  string  $cart
      * @return void
      */
     public function removeItem($rowId, $cart)
     {
-        $this->removeFromCartContent($rowId, $cart);
+        $content = $this->getContent($cart);
+
+        $content->pull($rowId);
+
+        $this->updateCart($cart, $content);
     }
 
     /**
      * Update the cart content.
      *
-     * @param string $rowId
-     * @param integer  $qty
-     * @param string $cart
+     * @param  string  $rowId
+     * @param  integer  $qty
+     * @param  string  $cart
      * @return void
      */
     public function updateItem($rowId, $qty, $cart)
     {
-        $this->updateItemQuantity($rowId, $qty, $cart);
+        $content = $this->getContent($cart);
+
+        $item = $content->get($rowId);
+
+        $this->createItem($item, $qty);
+
+        if ($qty <= 0)
+        {
+            $this->removeItem($rowId, $cart);
+        }
     }
 
     /**
      * Remove all items from the cart.
      *
-     * @param string $cart
+     * @param  string  $cart
      * @return void
      */
     public static function empty($cart)
@@ -71,18 +92,33 @@ class ShoppingCart
     }
 
     /**
-     * Get the number of items in the cart.
+     * Get the total # of cart items.
      *
-     * @param string $cart
+     * @param  string  $cart
+     * @param  string  $field
      * @return integer
      */
-    public function itemsCount($cart)
+    public function itemsCount($cart, $field = 'qty')
     {
-        return $this->calculateCartItemsCount($cart);
+        $content = $this->getContent($cart);
+
+        return $content->sum($field);
     }
 
     /**
-     * The cart contains a specific product.
+     * Determine if there is a product in the cart.
+     *
+     * @param  string  $cart
+     * @param  string  $field
+     * @return boolean
+     */
+    public function isNotEmpty($cart, $field = 'qty')
+    {
+        return $this->itemsCount($cart, $field) > 0;
+    }
+
+    /**
+     * Determine if the cart contains a specific product.
      *
      * @param  \App\Product  $product
      * @param  string  $cart
@@ -90,40 +126,70 @@ class ShoppingCart
      */
     public function hasProduct($product, $cart)
     {
-        // return ShoppingCart::getItems($cart)->firstWhere($this->itemIdentifier($cart), $product->id);
-        return self::getItems($cart)->firstWhere($this->itemIdentifier($cart), $product->id);
+        $item = $this->getContent($cart)->firstWhere('id', $product->id);
+
+        return $this->getContent($cart)->contains($item);
     }
 
     /**
-     * Get the cart subtotal (total - tax).
+     * Calculate the cart subtotal.
      *
-     * @param string $cart
-     * @return float
+     * @param  string  $cart
+     * @return string
      */
     public function subtotal($cart)
     {
-        return $this->calculateCartSubtotal($cart);
+        $subtotal = $this->calculateCartSubtotal($cart);
+
+        return Price::present($subtotal);
     }
 
     /**
-     * Get the amount of tax calculated on cart subtotal.
+     * Calculate the amount of tax on the cart subtotal.
      *
      * @param string $cart
-     * @return float;
+     * @return string;
      */
-    public function tax($cart)
+    public function taxAmount($cart)
     {
-        return $this->calculateCartTax($cart);
+        $taxAmount = $this->calculateCartTaxAmount($cart);
+
+        return Price::present($taxAmount);
     }
 
     /**
-     * Get the cart total.
+     * Calculate the shipping costs.
+     *
+     * @param  string $cart
+     * @return string
+     */
+    public function shippingCosts($cart)
+    {
+        $shippingCosts = $this->calculateShippingCosts($cart);
+
+        return Price::present($shippingCosts);
+    }
+
+    /**
+     * Calculate the cart total.
      *
      * @param string $cart
-     * @return float
+     * @return string
      */
     public function total($cart)
     {
-        return $this->calculateCartTotal($cart);
+        $total = $this->calculateCartTotal($cart);
+
+        return Price::present($total);
+    }
+
+    /**
+     * Display tax rate.
+     *
+     * @return string
+     */
+    public function presentTaxRate()
+    {
+        return (config('cart.tax') * 100) . '%';
     }
 }

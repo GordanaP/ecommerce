@@ -71,19 +71,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Currency
-    |--------------------------------------------------------------------------
-    |
-    | This value is the currency of your application. This value is used when the
-    | framework needs to place the application's currency in a notification or
-    | any other location as required by the application or its packages.
-    |
-    */
-
-    'currency' => env('APP_CURRENCY', '$'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

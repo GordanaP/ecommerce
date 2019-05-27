@@ -31,7 +31,7 @@
         var itemsIndexUrl = "{{ route('api.products.index') }}";
         var viewCartUrl = "{{ route('customers.carts.show', $customer) }}";
 
-        @include('carts.tables.datatable_products')
+        @include('carts.tables._datatable_all_products')
 
         $(document).on('click', '#addToCart', function() {
 

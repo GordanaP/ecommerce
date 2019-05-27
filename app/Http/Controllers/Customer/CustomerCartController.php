@@ -48,7 +48,7 @@ class CustomerCartController extends Controller
      */
     public function show(Customer $customer)
     {
-        $cartItems = ShoppingCart::getItems('laracommerce');
+        $cartItems = ShoppingCart::getContent('laracommerce');
 
         return view('carts.show', compact('customer', 'cartItems'));
     }
