@@ -8,11 +8,26 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/**
+ * Payment
+ */
+Route::get('payments/create', 'Payment\PaymentController@create')
+    ->name('payments.create');
+
+/**
+ * Cart
+ */
 Route::prefix('customer-cart')->group(function() {
+    Route::delete('/', 'Cart\CartController@empty')->name('carts.empty');
+    Route::get('/create', 'Cart\CartController@create')->name('carts.create');
+    Route::get('/show', 'Cart\CartController@show')->name('carts.show');
     Route::post('/{product}', 'Cart\CartController@store')->name('carts.store');
     Route::patch('/{rowId}', 'Cart\CartController@update')->name('carts.update');
     Route::delete('/{rowId}', 'Cart\CartController@destroy')->name('carts.destroy');
 });
+
+// CartCustomer
+Route::post('/carts/customers/store', 'Cart\CartCustomerController@store')->name('carts.customers.store');
 
 /**
  * Order
@@ -28,13 +43,6 @@ Route::resource('orders.products', 'Order\OrderProductController', [
  * Customer
  */
 Route::resource('customers', 'Customer\CustomerController');
-
-/*CustomerCart*/
-Route::resource('customers.carts', 'Customer\CustomerCartController', [
-    'only' => ['create']
-]);
-Route::get('customers/{customer}/shopping-cart', 'Customer\CustomerCartController@show')
-    ->name('customers.carts.show');
 
 /**
  * Category

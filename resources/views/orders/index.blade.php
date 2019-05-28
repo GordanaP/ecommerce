@@ -2,14 +2,20 @@
 
 @section('content')
 
-    @datatable_header(['items' => 'orders'])
+    <div class="flex justify-between">
 
-        @slot('title')
-        @endslot
+        <h3>Orders</h3>
 
-        {{ route('orders.create') }}
+        @if (ShoppingCart::isEmpty())
+            <a href="{{ route('carts.create') }}" class="btn bg-indigo-light text-white hover:bg-indigo-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-white h-4 w-4 mr-1" viewBox="0 0 20 20"><path d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></svg>
+                <span>Add Order</span>
+            </a>
+        @endif
 
-    @enddatatable_header
+    </div>
+
+    <hr>
 
     @datatable(['items' => 'orders'])
 

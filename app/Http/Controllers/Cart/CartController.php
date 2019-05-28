@@ -10,23 +10,13 @@ use App\Http\Controllers\Controller;
 class CartController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('carts.create');
     }
 
     /**
@@ -37,14 +27,14 @@ class CartController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        if(ShoppingCart::hasProduct($product, config('cart.name'))) {
+        if(ShoppingCart::hasProduct($product)) {
 
             $response = response([
                 'message' => 'The item is already in your cart.'
             ]);
         }
         else{
-            ShoppingCart::addItem($product, 1, config('cart.name'));
+            ShoppingCart::addItem($product, 1);
 
             $response = response([
                 'message' => 'A new item has been added to your cart.'
@@ -60,20 +50,11 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-    }
+        $cartItems = ShoppingCart::getItems();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('carts.show', compact('cartItems'));
     }
 
     /**
@@ -85,9 +66,10 @@ class CartController extends Controller
      */
     public function update(Request $request, $rowId)
     {
-        ShoppingCart::updateItem($rowId, $request->qty, config('cart.name'));
+        ShoppingCart::updateItem($rowId, $request->qty);
 
-        return back()->with(getAlert('The cart has been updated', 'success'));
+        return back()
+            ->with(getAlert('The cart has been updated', 'success'));
     }
 
     /**
@@ -98,14 +80,23 @@ class CartController extends Controller
      */
     public function destroy($rowId)
     {
-        ShoppingCart::removeItem($rowId, config('cart.name'));
+        ShoppingCart::removeItem($rowId);
 
-        return back()->with(getAlert('The item has been removed from the cart.', 'success'));
+        return back()
+            ->with(getAlert('The item has been removed from the cart.', 'success'));
     }
 
+    /**
+     * Remove all items from the shopping cart.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function empty()
     {
+        ShoppingCart::empty();
 
+        return redirect()->route('carts.create')
+            ->with(getAlert('The cart is empty', 'success'));
     }
 
 }

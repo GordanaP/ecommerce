@@ -17,6 +17,14 @@
             @admin_side_link(['items' => 'orders'])
             @endadmin_side_link
 
+            @if (ShoppingCart::isEmpty(config('cart.name')))
+                <li class="d-flex justify-content-between align-items-center p-1">
+                    <a href="{{ route('carts.create') }}">
+                        New Order
+                    </a>
+                </li>
+            @endif
+
         </ul>
     </div>
 </aside>

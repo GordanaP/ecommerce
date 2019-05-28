@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Payment;
 
-use App\Customer;
 use Illuminate\Http\Request;
-use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
 
-class CustomerCartController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +22,9 @@ class CustomerCartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Customer $customer)
+    public function create()
     {
-        return view('carts.create', compact('customer'));
+        return view('payments.create');
     }
 
     /**
@@ -43,23 +41,21 @@ class CustomerCartController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        $cartItems = ShoppingCart::getContent('laracommerce');
-
-        return view('carts.show', compact('customer', 'cartItems'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
         //
     }
@@ -68,10 +64,10 @@ class CustomerCartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -79,10 +75,10 @@ class CustomerCartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customer  $customer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
         //
     }

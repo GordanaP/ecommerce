@@ -4,32 +4,48 @@
 
     <header class="flex justify-between">
         <h3>View Cart</h3>
-        <div>
-            <a href="{{ route('customers.carts.create', $customer) }}" class="mr-4">
+
+        <div class="flex items-center">
+            <a href="{{ route('carts.create') }}" class="mr-2">
                 Continue shopping
             </a>
 
-            <a href="#" class="btn bg-indigo-light text-white hover:bg-indigo-dark">
-                <svg class="fill-current text-white inline-block h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4 2h16l-3 9H4a1 1 0 1 0 0 2h13v2H4a3 3 0 0 1 0-6h.33L3 5 2 2H0V0h3a1 1 0 0 1 1 1v1zm1 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
-                <span>Checkout</span>
-            </a>
+            @if (ShoppingCart::isNotEmpty())
+                <div class="flex">
+                    <form action="{{ route('carts.empty') }}" method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn bg-orange text-white hover:bg-orange-dark">
+                            <svg class="fill-current text-white h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"/></svg>
+                            <span>Empty Cart</span>
+                        </button>
+                    </form>
+
+                    <a href="{{ route('orders.create') }}" class="btn bg-indigo-light text-white hover:bg-indigo-dark">
+                        <i class="fa fa-angle-double-right fa-lg mr-1" aria-hidden="true"></i>
+                        <span>Checkout</span>
+                    </a>
+                </div>
+            @endif
         </div>
     </header>
+
     <hr>
 
-    @if (ShoppingCart::isNotEmpty(config('cart.name')))
+    @if (ShoppingCart::isNotEmpty())
         <table class="table bg-white border-b border-grey-light">
             <thead class="bg-grey-dark uppercase text-white">
-                <th width="10%">Item</th>
-                <th width="23%"></th>
+                <th width="12%">Item</th>
+                <th width="25%"></th>
                 <th width="20%" class="text-center">Price</th>
-                <th width="12%">Qty</th>
-                <th width="13%" class="text-right">Subtotal</th>
-                <th width="12%" class="text-center"><i class="fa fa-cog"></i></th>
+                <th width="10%">Qty</th>
+                <th width="15%" class="text-right">Subtotal</th>
+                <th></th>
             </thead>
 
             <tbody>
-
                 <!-- Cart items -->
                 @foreach ($cartItems as $rowId => $item)
                     @include('carts.tables._cart_item_row')

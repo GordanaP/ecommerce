@@ -2,7 +2,7 @@
     id="{{ $items }}Table">
 
     <thead class="bg-grey-lightest text-grey-dark text-xs uppercase">
-        @if (! Request::route()->named('customers.carts.create'))
+        @if (! Request::route()->named('carts.create'))
             <th style="width: 5%">
                 <label class="checkbox-container mb-4">
                     <input type="checkbox" id="checkAll{{ ucfirst($items) }}">

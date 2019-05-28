@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Order;
 use Illuminate\Http\Request;
+use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -25,7 +26,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('orders.create');
+        $cartItems = ShoppingCart::getItems();
+
+        return view('orders.create', compact('cartItems'));
     }
 
     /**

@@ -12,7 +12,7 @@ trait HasPrice
      */
     protected function calculateCartSubtotal($cart)
     {
-        $content = $this->getContent($cart);
+        $content = $this->getItems($cart);
 
         $subtotal = $content->reduce(function ($subtotal, $item)
         {

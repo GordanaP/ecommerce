@@ -1,4 +1,5 @@
 <form action="{{ route('carts.destroy', $rowId) }}" method="POST">
+
     @csrf
     @method('DELETE')
 

@@ -28,16 +28,11 @@
 
     <!-- Qty -->
     <td class="border-b border-grey-light">
-        @include('carts.forms._update_quantity')
+        {{ $item->qty }}
     </td>
 
     <!-- Item subtotal -->
     <td class="border-b border-grey-light text-right" width="15%">
         {{ Price::present($item->subtotal) }}
-    </td>
-
-    <!-- Trash -->
-    <td class="border-b border-grey-light text-right">
-        @include('carts.forms._remove_item')
     </td>
 </tr>

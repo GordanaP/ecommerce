@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Product;
 
 use App\Facades\Price;
+use App\Facades\ShoppingCart;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource

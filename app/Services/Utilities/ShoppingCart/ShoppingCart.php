@@ -8,6 +8,8 @@ use App\Traits\ShoppingCart\HasPrice;
 use App\Traits\ShoppingCart\HasContent;
 use Illuminate\Support\Facades\Session;
 
+define('CART_NAME', config('cart.name'));
+
 class ShoppingCart
 {
     use HasContent, HasPrice;
@@ -20,7 +22,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return void
      */
-    public function addItem($product, $qty = 1, $cart)
+    public function addItem($product, $qty = 1, $cart = CART_NAME)
     {
         $item    = $this->createItem($product, $qty);
 
@@ -31,15 +33,34 @@ class ShoppingCart
         $this->updateCart($cart, $content);
     }
 
+    public function addCustomer($customer, $cart = CART_NAME)
+    {
+        if ($this->isNotEmpty($cart)) {
+
+            Session::get($cart)->put('customer_billing', $customer);
+        }
+    }
+
     /**
      * Get the cart content.
      *
      * @param  string  $cart
      * @return \Illuminate\Support\Collection
      */
-    public function getContent($cart)
+    public function getContent($cart = CART_NAME)
     {
         return Session::has($cart) ? Session::get($cart) : new Collection;
+    }
+
+    /**
+     * Get the cart content.
+     *
+     * @param  string  $cart
+     * @return \Illuminate\Support\Collection
+     */
+    public function getItems($cart = CART_NAME)
+    {
+        return $this->getContent($cart)->except('customer_billing');
     }
 
     /**
@@ -49,7 +70,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return void
      */
-    public function removeItem($rowId, $cart)
+    public function removeItem($rowId, $cart = CART_NAME)
     {
         $content = $this->getContent($cart);
 
@@ -66,7 +87,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return void
      */
-    public function updateItem($rowId, $qty, $cart)
+    public function updateItem($rowId, $qty, $cart = CART_NAME)
     {
         $content = $this->getContent($cart);
 
@@ -86,7 +107,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return void
      */
-    public static function empty($cart)
+    public static function empty($cart = CART_NAME)
     {
         Session::forget($cart);
     }
@@ -98,7 +119,7 @@ class ShoppingCart
      * @param  string  $field
      * @return integer
      */
-    public function itemsCount($cart, $field = 'qty')
+    public function itemsCount($cart = CART_NAME, $field = 'qty')
     {
         $content = $this->getContent($cart);
 
@@ -112,9 +133,21 @@ class ShoppingCart
      * @param  string  $field
      * @return boolean
      */
-    public function isNotEmpty($cart, $field = 'qty')
+    public function isNotEmpty($cart = CART_NAME, $field = 'qty')
     {
         return $this->itemsCount($cart, $field) > 0;
+    }
+
+    /**
+     * Determine if there is a product in the cart.
+     *
+     * @param  string  $cart
+     * @param  string  $field
+     * @return boolean
+     */
+    public function isEmpty($cart = CART_NAME, $field = 'qty')
+    {
+        return $this->itemsCount($cart, $field) == 0;
     }
 
     /**
@@ -124,7 +157,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return boolean
      */
-    public function hasProduct($product, $cart)
+    public function hasProduct($product, $cart = CART_NAME)
     {
         $item = $this->getContent($cart)->firstWhere('id', $product->id);
 
@@ -137,7 +170,7 @@ class ShoppingCart
      * @param  string  $cart
      * @return string
      */
-    public function subtotal($cart)
+    public function subtotal($cart = CART_NAME)
     {
         $subtotal = $this->calculateCartSubtotal($cart);
 
@@ -150,7 +183,7 @@ class ShoppingCart
      * @param string $cart
      * @return string;
      */
-    public function taxAmount($cart)
+    public function taxAmount($cart = CART_NAME)
     {
         $taxAmount = $this->calculateCartTaxAmount($cart);
 
@@ -163,7 +196,7 @@ class ShoppingCart
      * @param  string $cart
      * @return string
      */
-    public function shippingCosts($cart)
+    public function shippingCosts($cart = CART_NAME)
     {
         $shippingCosts = $this->calculateShippingCosts($cart);
 
@@ -176,7 +209,7 @@ class ShoppingCart
      * @param string $cart
      * @return string
      */
-    public function total($cart)
+    public function total($cart = CART_NAME)
     {
         $total = $this->calculateCartTotal($cart);
 
