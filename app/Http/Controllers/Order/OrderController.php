@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Order;
 
 use App\Order;
+use App\Customer;
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
+
+define('CART', config('cart.name'));
 
 class OrderController extends Controller
 {
@@ -39,7 +42,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = Order::createNew(CART);
+
+        return redirect()->route('orders.show', $order);
     }
 
     /**

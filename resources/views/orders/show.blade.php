@@ -33,7 +33,7 @@
             <p class="w-1/5 uppercase text-sm text-grey-darkest font-bold">
                 Tax ({{ config('cart.currency') }})
             </p>
-            <p class="text-grey-dark">{{ Price::toUnit($order->tax) }}</p>
+            <p class="text-grey-dark">{{ Price::toUnit($order->tax_amount) }}</p>
         </div>
 
         <hr class="border-t border-grey-lighter">

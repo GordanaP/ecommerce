@@ -22,9 +22,8 @@ class CreateOrderProductTable extends Migration
             $table->unsignedBigInteger('product_id')->index();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            $table->unsignedInteger('quantity');
-            $table->unsignedInteger('price');
-
+            $table->unsignedInteger('quantity')->nullable();
+            $table->unsignedInteger('price')->nullable();
         });
     }
 

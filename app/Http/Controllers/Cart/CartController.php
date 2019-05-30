@@ -29,16 +29,26 @@ class CartController extends Controller
     {
         if(ShoppingCart::hasProduct($product)) {
 
-            $response = response([
-                'message' => 'The item is already in your cart.'
-            ]);
+            if (request()->ajax()) {
+                $response = response([
+                    'message' => 'The item is already in your cart.'
+                ]);
+            }
+            else {
+                $response = back()->with(getAlert('The item is already in your cart.', 'success'));
+            }
         }
         else{
             ShoppingCart::addItem($product, 1);
 
-            $response = response([
-                'message' => 'A new item has been added to your cart.'
-            ]);
+            if (request()->ajax()) {
+                $response = response([
+                    'message' => 'A new item has been added to your cart.'
+                ]);
+            }
+            else {
+                $response = back()->with(getAlert('A new item has been added to your cart.', 'success'));
+            }
         }
 
         return $response;

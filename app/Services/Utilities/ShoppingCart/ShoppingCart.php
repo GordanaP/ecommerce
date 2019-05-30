@@ -37,7 +37,7 @@ class ShoppingCart
     {
         if ($this->isNotEmpty($cart)) {
 
-            Session::get($cart)->put('customer_billing', $customer);
+            Session::get($cart)->put('customer', $customer);
         }
     }
 
@@ -60,7 +60,18 @@ class ShoppingCart
      */
     public function getItems($cart = CART_NAME)
     {
-        return $this->getContent($cart)->except('customer_billing');
+        return $this->getContent($cart)->except('customer');
+    }
+
+    /**
+     * Get the cart content.
+     *
+     * @param  string  $cart
+     * @return \Illuminate\Support\Collection
+     */
+    public function getCustomer($cart = CART_NAME)
+    {
+        return $this->getContent($cart)->only('customer');
     }
 
     /**
@@ -133,9 +144,9 @@ class ShoppingCart
      * @param  string  $field
      * @return boolean
      */
-    public function isNotEmpty($cart = CART_NAME, $field = 'qty')
+    public function isNotEmpty($cart = CART_NAME)
     {
-        return $this->itemsCount($cart, $field) > 0;
+        return $this->getItems($cart)->isNotEmpty();
     }
 
     /**
@@ -145,9 +156,9 @@ class ShoppingCart
      * @param  string  $field
      * @return boolean
      */
-    public function isEmpty($cart = CART_NAME, $field = 'qty')
+    public function isEmpty($cart = CART_NAME)
     {
-        return $this->itemsCount($cart, $field) == 0;
+        return $this->getItems($cart)->isEmpty();
     }
 
     /**

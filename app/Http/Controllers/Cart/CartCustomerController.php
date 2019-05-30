@@ -17,9 +17,7 @@ class CartCustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = $request->all();
-
-        ShoppingCart::addCustomer($customer);
+        ShoppingCart::addCustomer($request->all());
 
         return redirect()->route('payments.create');
     }

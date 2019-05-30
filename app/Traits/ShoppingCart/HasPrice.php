@@ -10,7 +10,7 @@ trait HasPrice
      * @param  string  $cart
      * @return integer
      */
-    protected function calculateCartSubtotal($cart)
+    public function calculateCartSubtotal($cart)
     {
         $content = $this->getItems($cart);
 
@@ -28,7 +28,7 @@ trait HasPrice
      * @param  string  $cart
      * @return integer
      */
-    protected function calculateCartTaxAmount($cart)
+    public function calculateCartTaxAmount($cart)
     {
         $taxRate = 0.2;
 
@@ -43,7 +43,7 @@ trait HasPrice
      * @param  string  $cart
      * @return integer
      */
-    protected function calculateShippingCosts($cart)
+    public function calculateShippingCosts($cart)
     {
         return 1000;
     }
@@ -54,7 +54,7 @@ trait HasPrice
      * @param  string  $cart
      * @return integer
      */
-    protected function calculateCartTotal($cart)
+    public function calculateCartTotal($cart)
     {
         $total = collect([
             $this->calculateCartSubtotal($cart),

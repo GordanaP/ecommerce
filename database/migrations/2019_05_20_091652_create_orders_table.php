@@ -15,13 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('number')->unique();
+            // $table->integer('number')->unique();
 
             $table->unsignedBigInteger('customer_id')->index();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')
+                ->onDelete('cascade');
 
             $table->integer('subtotal')->nullable();
-            $table->integer('tax')->nullable();
+            $table->integer('tax_amount')->nullable();
             $table->integer('total')->nullable();
             $table->boolean('paid')->default(false);
             $table->timestamps();

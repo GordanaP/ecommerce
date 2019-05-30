@@ -40,19 +40,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        // $customer = Customer::create($request->all());
-        $customer = Customer::first();
+        $customer = Customer::create($request->all());
 
-        if($request->submitButton == 'ProceedToOrder')
-        {
-            return redirect()->route('customers.carts.create', compact('customer'))
-                ->with($this->storeResponse());
-        }
-        else
-        {
+        // if($request->submitButton == 'ProceedToOrder')
+        // {
+        //     return redirect()->route('customers.carts.create', compact('customer'))
+        //         ->with($this->storeResponse());
+        // }
+        // else
+        // {
             return $this->redirectAfterStoring('customers', $customer)
                 ->with($this->storeResponse());
-        }
+        // }
     }
 
     /**
