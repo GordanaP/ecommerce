@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Order;
 
 use App\Order;
-use App\Customer;
+use App\Traits\RedirectTo;
 use Illuminate\Http\Request;
 use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
+use App\Services\Utilities\Order\OrderSummary;
 
 define('CART', config('cart.name'));
 
 class OrderController extends Controller
 {
+    use RedirectTo;
+
     /**
      * Display a listing of the resource.
      *
@@ -42,9 +45,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = Order::createNew(CART);
+        $order = Order::place(CART);
 
-        return redirect()->route('orders.show', $order);
+        return redirect()->route('orders.show', $order)
+            ->with(getAlert('A new order has been placed.', 'success'));
     }
 
     /**
@@ -55,7 +59,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('orders.show', compact('order'));
+        $orderSummary = (new OrderSummary($order));
+
+        return view('orders.show', compact('order', 'orderSummary'));
     }
 
     /**
@@ -89,6 +95,9 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        return $this->redirectAfterDeleting('orders')
+            ->with($this->deleteResponse());
     }
 }

@@ -17,12 +17,12 @@ class OrderResource extends JsonResource
     {
         return [
             'ui' => $this->id,
-            'identifier' => $this->present_number,
+            'identifier' => $this->number,
+            'itemsCount' => $this->products->count(),
             'amount' => Price::toUnit($this->total),
             'is_completed' => $this->paid,
             'link' => [
                 'show' => route('orders.show', $this),
-                'edit' => route('orders.edit', $this),
             ]
         ];
     }

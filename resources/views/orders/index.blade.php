@@ -20,7 +20,8 @@
     @datatable(['items' => 'orders'])
 
         <th>Identifier</th>
-        <th>Amount ({{ config('app.currency') }})</th>
+        <th>Items #</th>
+        <th>Total ({{ config('cart.currency') }})</th>
         <th>Paid</th>
 
     @enddatatable

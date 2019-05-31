@@ -32,10 +32,6 @@ class UtilityServiceProvider extends ServiceProvider
             return new Price();
         });
 
-        $this->app->bind('my-message', function() {
-            return new Message();
-        });
-
         $this->app->bind('shopping-cart', function() {
             return new ShoppingCart();
         });

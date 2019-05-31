@@ -15,11 +15,6 @@ class Order extends Model
         'number', 'customer_id', 'subtotal', 'tax_amount', 'total', 'paid'
     ];
 
-    public function getPresentNumberAttribute($value)
-    {
-        return '#'.$this->number;
-    }
-
     public function customer()
     {
         return $this->belongsTo(Customer::class);
@@ -27,26 +22,44 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->as('incart')->withPivot('quantity', 'price');
     }
 
-    public static function createNew($cart)
+    public static function place($cart)
     {
-        $customer = Customer::createForOrder();
+        $order = static::getForCart($cart);
 
-        $order = static::createForCustomer($customer, $cart);
+        static::attachItemsToOrder($order);
 
         ShoppingCart::empty();
+
+        return $orderget;
     }
 
-    protected static function createForCustomer($customer, $cart)
+    protected static function getForCart($cart)
     {
-        return static::create([
-            'customer_id' => $customer->id,
+        $order = new static([
             'subtotal' => ShoppingCart::calculateCartSubtotal($cart),
             'tax_amount' => ShoppingCart::calculateCartTaxAmount($cart),
             'total' => ShoppingCart::calculateCartTotal($cart),
             'paid' => true
         ]);
+
+        return Customer::createForOrder()->addOrder($order);
+    }
+
+    protected static function attachItemsToOrder($order)
+    {
+        collect(ShoppingCart::getItems())->values()->map(function($item, $key) use ($order) {
+            $order->products()->attach($item->id, [
+                'quantity' => $item->qty,
+                'price' => $item->price
+            ]);
+        });
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->paid ? 'paid' : 'pending';
     }
 }

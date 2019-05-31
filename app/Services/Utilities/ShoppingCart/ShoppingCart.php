@@ -41,6 +41,14 @@ class ShoppingCart
         }
     }
 
+    public function addShippingAddress($shippingAddress, $cart = CART_NAME)
+    {
+        if ($this->isNotEmpty($cart)) {
+
+            Session::get($cart)->put('shipping', $shipping);
+        }
+    }
+
     /**
      * Get the cart content.
      *
@@ -60,7 +68,7 @@ class ShoppingCart
      */
     public function getItems($cart = CART_NAME)
     {
-        return $this->getContent($cart)->except('customer');
+        return $this->getContent($cart)->except(['customer', 'shipping']);
     }
 
     /**
@@ -72,6 +80,12 @@ class ShoppingCart
     public function getCustomer($cart = CART_NAME)
     {
         return $this->getContent($cart)->only('customer');
+    }
+
+
+    public function getShippingAddress($cart = CART_NAME)
+    {
+        return $this->getContent($cart)->only('shipping');
     }
 
     /**

@@ -38,4 +38,9 @@ class Customer extends Model
             'phone' => $customer->get('phone')
         ]);
     }
+
+    public function addOrder($order)
+    {
+        return $this->orders()->save($order);
+    }
 }

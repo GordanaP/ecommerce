@@ -32,7 +32,9 @@ Route::post('/carts/customers/store', 'Cart\CartCustomerController@store')->name
 /**
  * Order
  */
-Route::resource('orders', 'Order\OrderController');
+Route::resource('orders', 'Order\OrderController', [
+    'except' => ['edit', 'update']
+]);
 
 /* OrderProduct */
 Route::resource('orders.products', 'Order\OrderProductController', [

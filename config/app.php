@@ -177,6 +177,7 @@ return [
         App\Providers\ViewServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         App\Providers\UtilityServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
 
     ],
 

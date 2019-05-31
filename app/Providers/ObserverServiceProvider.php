@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Order;
+use App\Observers\OrderObserver;
 use Illuminate\Support\ServiceProvider;
 
-class CartServiceProvider extends ServiceProvider
+class ObserverServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -13,13 +15,7 @@ class CartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /**
-         * Register a binding of the the Price class with the related container.
-         */
-        $this->app->bind('shopping-cart', function()
-        {
-            return new ShoppingCart;
-        });
+        //
     }
 
     /**
@@ -29,6 +25,6 @@ class CartServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Order::observe(OrderObserver::class);
     }
 }

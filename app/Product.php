@@ -25,7 +25,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class)->as('incart')->withPivot('quantity', 'price');
     }
 
     public function setNameAttribute($value)
