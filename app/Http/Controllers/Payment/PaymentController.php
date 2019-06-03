@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Payment;
 
 use Illuminate\Http\Request;
+use App\Facades\ShoppingCart;
 use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
@@ -24,7 +25,9 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('payments.create');
+        $items = ShoppingCart::getItems()->flatten();
+
+        return view('payments.create', compact('items'));
     }
 
     /**
@@ -81,5 +84,29 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function callback(Request $request)
+    {
+        return $request->all();
+
+        $hashSecretWord = 'gordana'; //2Checkout Secret Word
+        $hashSid = 901408092; //2Checkout account number
+        $hashTotal = $_REQUEST['total'];; //Sale total to validate against
+        $hashOrder = $_REQUEST['order_number']; //2Checkout Order Number
+        $StringToHash = strtoupper(md5($hashSecretWord . $hashSid . $hashOrder . $hashTotal));
+
+        if ($StringToHash != $_REQUEST['key']) {
+
+            $result = 'Fail - Hash Mismatch';
+
+        } else {
+
+            $result = 'Success - Hash Matched';
+        }
+
+        ShoppingCart::empty();
+
+        return redirect()->route('orders.index')->with(getAlert($result, 'success'));
     }
 }

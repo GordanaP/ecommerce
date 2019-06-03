@@ -33,7 +33,7 @@ class Order extends Model
 
         ShoppingCart::empty();
 
-        return $orderget;
+        return $order;
     }
 
     protected static function getForCart($cart)

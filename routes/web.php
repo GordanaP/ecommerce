@@ -13,6 +13,10 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::get('payments/create', 'Payment\PaymentController@create')
     ->name('payments.create');
+Route::post('payments/store', 'Payment\PaymentController@callback')
+        ->name('payments.store');
+Route::get('payments/callback', 'Payment\PaymentController@callback')
+    ->name('payments.callback');
 
 /**
  * Cart

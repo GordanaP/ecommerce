@@ -6,7 +6,7 @@
 
     <hr>
 
-    <form action="{{ route('orders.store') }}" method="POST">
+    {{-- <form action="{{ route('orders.store') }}" method="POST">
 
         @csrf
 
@@ -16,8 +16,24 @@
             <span>Pay Order</span>
         </button>
 
-        {{ collect(ShoppingCart::getCustomer()->get('customer')) }}
-
     </form>
+ --}}
+
+
+    <form action='https://sandbox.2checkout.com/checkout/purchase' method='POST'>
+        <input type='hidden' name='sid' value='901408092' >
+        <input type='hidden' name='mode' value='2CO' >
+        @for ($i = 0; $i < $items->count(); $i++)
+            <input type='hidden' name="{{ 'li_'.$i.'_type' }}" value='product' >
+            <input type='hidden' name="{{ 'li_'.$i.'_name' }}" value="{{ $items[$i]->name }}" >
+            <input type='hidden' name="{{ 'li_'.$i.'_price' }}" value="{{ Price::toUnit($items[$i]->price) }}" >
+            <input type='hidden' name="{{ 'li_'.$i.'_quantity' }}" value="{{ $items[$i]->qty }}" >
+            <input type='hidden' name="{{ 'li_'.$i.'_tangible' }}" value='N' >
+            <input type='hidden' name="sales_tax" value='0.2' >
+        @endfor
+
+        <input name='submit' type='submit' class="btn btn-primary" value='Checkout' >
+    </form>
+
 
 @endsection
